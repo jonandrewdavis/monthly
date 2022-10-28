@@ -21,11 +21,11 @@ export default function Page() {
   return (
     <div className="space-y-6 dark">
       <header>
-        <h1 className="w-screen text-red-50 text-3xl" >UPDATE Monthly</h1>
+        <h1 className="w-screen text-zinc-500 text-7xl" >2: UPDATE Monthly</h1>
       </header>
       <div className="w-screen p12  flex-1">
         <table className="table-auto text-sm text-left text-zinc-400">
-          <thead className="text-xs text-gray-700 uppercase bg-zinc-50">
+          <thead className="text-xs text-gray-700 uppercase">
             <tr>
               {tablehead.map(head => <th className="text-zinc-500 text-s">{head}</th>)}
             </tr>
