@@ -19,12 +19,12 @@ export default function Page() {
   const transactionsData = use(fetchLocal());
   if (!transactionsData) return null;
   return (
-    <div className="bg-zinc-50 space-y-6 dark">
+    <div className="space-y-6 dark">
       <header>
         <h1 className="w-screen text-white text-3xl" >Monthly</h1>
       </header>
       <div className="w-screen p12  flex-1">
-        <table className="table-fixed w-full text-sm text-left text-zinc-400">
+        <table className="table-auto text-sm text-left text-zinc-400">
           <thead className="text-xs text-gray-700 uppercase bg-zinc-50">
             <tr>
               {tablehead.map(head => <th className="text-zinc-500 text-s">{head}</th>)}
