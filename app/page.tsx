@@ -21,7 +21,7 @@ export default function Page() {
   return (
     <div className="space-y-6 dark">
       <header>
-        <h1 className="w-screen text-white text-3xl" >Monthly</h1>
+        <h1 className="w-screen text-red-50 text-3xl" >UPDATE Monthly</h1>
       </header>
       <div className="w-screen p12  flex-1">
         <table className="table-auto text-sm text-left text-zinc-400">

@@ -8,6 +8,19 @@ module.exports = {
     './page/**/*.{js,ts,jsx,tsx}',
     './ui/**/*.{js,ts,jsx,tsx}',
   ],
+
+  mode: 'jit',
+
+  // These paths are just examples, customize them to match your project structure
+
+  purge: [
+    './public/**/*.html',
+    './page/**/*.{js,jsx,ts,tsx,vue}',
+    './app/**/*.{js,jsx,ts,tsx,vue}',
+    './ui/**/*.{js,jsx,ts,tsx,vue}',
+  ],
+
+  plugins: [require("@tailwindcss/typography")],
   theme: {
     extend: {
       // https://vercel.com/design/color
