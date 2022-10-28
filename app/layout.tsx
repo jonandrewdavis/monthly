@@ -9,7 +9,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html  className="dark">
+    <html className="dark">
       <head>
         <title>Monthly</title>
       </head>

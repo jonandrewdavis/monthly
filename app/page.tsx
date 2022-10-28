@@ -1,31 +1,44 @@
-import { demos } from '@/lib/demos';
-import Link from 'next/link';
+import { use } from 'react';
+import { fetchTransactions } from '@/lib/getCategories';
 
 const tablehead = [
-"Transaction Date","Post Date",
-"Description","Category","Type","Amount","Memo"
+  "Transaction Date", "Post Date",
+  "Description", "Category", "Type", "Amount"
 ]
 
+type Transaction = {
+  [key: string]: string | number;
+};
+
+const fetchLocal = async (): Promise<Transaction[] | undefined> => {
+
+  return await fetchTransactions();
+};
+
 export default function Page() {
+  const transactionsData = use(fetchLocal());
+  if (!transactionsData) return null;
   return (
-    <div className="bg-black space-y-6">
+    <div className="bg-zinc-50 space-y-6 dark">
       <header>
-        <h1 className="w-screen text-zinc-500 text-3xl" >Monthly</h1>
+        <h1 className="w-screen text-white text-3xl" >Monthly</h1>
       </header>
       <div className="w-screen p12  flex-1">
-        <table className="table-auto">
-        <thead>
-        <tr>
-          {tablehead.map(head => <th className="text-zinc-500 text-s">{head}</th>)}
-
-        </tr>
-        </thead>
-         <tbody> 
-          <tr>
-          {tablehead.map(head => <td className="text-zinc-500 text-xl">{head}</td>)}</tr>
-</tbody>
+        <table className="table-fixed w-full text-sm text-left text-zinc-400">
+          <thead className="text-xs text-gray-700 uppercase bg-zinc-50">
+            <tr>
+              {tablehead.map(head => <th className="text-zinc-500 text-s">{head}</th>)}
+            </tr>
+          </thead>
+          <tbody>
+            {transactionsData.map((transaction: Transaction) => (
+              <tr className="border-gray">
+                {tablehead.map((column: string) => <td className="py-4 px-6 text-white">{transaction[column]}</td>)}
+              </tr>
+            ))}
+          </tbody>
         </table>
       </div>
     </div>
-    );
+  );
 }

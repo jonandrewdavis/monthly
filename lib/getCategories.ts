@@ -1,3 +1,5 @@
+import { getTransactions } from "./testData"
+
 export type PageProps = {
   params?: any;
   children?: React.ReactNode;
@@ -8,6 +10,7 @@ export type Category = {
   count: number;
   items: Omit<Category, 'items'>[];
 };
+
 
 export const getCategories = (): Category[] => [
   {
@@ -49,6 +52,14 @@ export async function fetchCategoryBySlug(slug: string | undefined) {
 
 export async function fetchCategories(): Promise<Category[]> {
   return getCategories();
+}
+
+type Transaction = {
+  [key: string]: string | number;
+};
+
+export async function fetchTransactions(): Promise<Transaction[]> {
+  return getTransactions();
 }
 
 async function findSubCategory(
