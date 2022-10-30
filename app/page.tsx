@@ -13,9 +13,23 @@ type Transaction = {
   [key: string]: string | number;
 };
 
-const fetchLocal = async (): Promise<Transaction[] | undefined> => {
+const fetchLocal = (): Promise<Transaction[] | undefined> => {
+  const hashMap: Transaction = {};
+  const final: Transaction[] = [];
 
-  return await fetchTransactions();
+  return fetchTransactions().then((results) => {
+    results.forEach((item) => {
+      const curr = item['Amount'].toString();
+      if (!hashMap[curr]) {
+        hashMap[curr] = 1;
+      } else if (hashMap[curr] === 1) {
+        final.push(item);
+      };
+    });
+    return final
+  });
+
+
 };
 
 export default function Page() {
@@ -25,9 +39,12 @@ export default function Page() {
     <div>
       <div className="max-w-4xl mx-auto">
         <header className='p-8'>
-          <h1 className="text-white text-3xl" >monthly 2</h1>
+          <h1 className="text-white text-3xl" >monthly 4</h1>
         </header>
-        <div className="flex flex-col">
+        <div className="flex flex-row win-w-full gap-4">
+          <div className="bg-gray-100 dark:bg-gray-700 max-h-32 rounded-lg">
+            <h3 className='i'>$300.20</h3>
+          </div>
           <div className="overflow-x-auto shadow-md sm:rounded-lg">
             <div className="inline-block min-w-full align-middle">
               <div className="overflow-hidden ">
