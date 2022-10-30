@@ -25,13 +25,13 @@ export default function Page() {
     <div>
       <div className="max-w-4xl mx-auto">
         <header className='p-8'>
-          <h1 className="text-vercel-pink text-3xl" >monthly 2</h1>
+          <h1 className="text-white text-3xl" >monthly 2</h1>
         </header>
         <div className="flex flex-col">
           <div className="overflow-x-auto shadow-md sm:rounded-lg">
             <div className="inline-block min-w-full align-middle">
               <div className="overflow-hidden ">
-                <table class="min-w-full divide-y divide-gray-200 table-fixed dark:divide-gray-700">
+                <table className="min-w-full divide-y divide-gray-200 table-fixed dark:divide-gray-700">
                   <thead className="bg-gray-100 dark:bg-gray-700">
                     <tr>
                       {tablehead.map(head => (
@@ -43,7 +43,7 @@ export default function Page() {
                   </thead>
                   <tbody className="bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700">
                     {transactionsData.map((transaction: Transaction) => (
-                      <tr scope="col" className="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400">
+                      <tr className="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400">
                         {tablehead.map((column: string) => <td className="py-4 px-6 text-white">{transaction[column]}</td>)}
                       </tr>
                     ))}
