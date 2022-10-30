@@ -2,7 +2,7 @@ import Image from 'next/image'
 import styles from './page.module.css'
 
 import { use } from 'react';
-import { fetchTransactions } from '/lib/getCategories';
+import { fetchTransactions } from '../lib/getCategories';
 
 const tablehead = [
   "Post Date",
