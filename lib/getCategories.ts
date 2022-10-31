@@ -1,78 +1,43 @@
 import { getTransactions } from "./testData"
+import { v4 } from 'uuid';
 
 export type PageProps = {
   params?: any;
   children?: React.ReactNode;
 };
-export type Category = {
-  name: string;
-  slug: string;
-  count: number;
-  items: Omit<Category, 'items'>[];
+
+export type Transaction = {
+  Amount: number;
+  isActive: boolean;
+  uuid: string;
+  [key: string]: string | number | boolean;
 };
 
-
-export const getCategories = (): Category[] => [
-  {
-    name: 'Electronics',
-    slug: 'electronics',
-    count: 11,
-    items: [
-      { name: 'Phones', slug: 'phones', count: 4 },
-      { name: 'Tablets', slug: 'tablets', count: 5 },
-      { name: 'Laptops', slug: 'laptops', count: 2 },
-    ],
-  },
-  {
-    name: 'Clothing',
-    slug: 'clothing',
-    count: 12,
-    items: [
-      { name: 'Tops', slug: 'tops', count: 3 },
-      { name: 'Shorts', slug: 'shorts', count: 4 },
-      { name: 'Shoes', slug: 'shoes', count: 5 },
-    ],
-  },
-  {
-    name: 'Books',
-    slug: 'books',
-    count: 10,
-    items: [
-      { name: 'Fiction', slug: 'fiction', count: 5 },
-      { name: 'Biography', slug: 'biography', count: 2 },
-      { name: 'Education', slug: 'education', count: 3 },
-    ],
-  },
-];
-
-export async function fetchCategoryBySlug(slug: string | undefined) {
-  // Assuming it always return expected categories
-  return getCategories().find((category) => category.slug === slug);
+type Count = {
+  [key: string]: number;
 }
 
-export async function fetchCategories(): Promise<Category[]> {
-  return getCategories();
-}
+const filterToMonthly = (transactions: Transaction[]) => {
+  const hashMap: Count = {};
+  const final: Transaction[] = [];
 
-type Transaction = {
-  [key: string]: string | number;
-};
+  transactions.forEach((item) => {
+    const curr = item['Amount'].toString();
+    if (!hashMap[curr]) {
+      hashMap[curr] = 1;
+    } else if (hashMap[curr] === 1) {
+      const temp = item;
+      item.uuid = v4();
+      item.isActive = true;
+      final.push(temp);
+      hashMap[curr] = hashMap[curr] + 1;
+    };
+  });
+  return final
+
+}
 
 export async function fetchTransactions(): Promise<Transaction[]> {
-  return getTransactions();
+  return filterToMonthly(getTransactions());
 }
 
-async function findSubCategory(
-  category: Category | undefined,
-  subCategorySlug: string | undefined,
-) {
-  return category?.items.find((category) => category.slug === subCategorySlug);
-}
-
-export async function fetchSubCategory(
-  categorySlug: string | undefined,
-  subCategorySlug: string | undefined,
-) {
-  const category = await fetchCategoryBySlug(categorySlug);
-  return findSubCategory(category, subCategorySlug);
-}
