@@ -17,18 +17,19 @@ type Count = {
   [key: string]: number;
 }
 
-const filterToMonthly = (transactions: Transaction[]) => {
+const filterToMonthly = () => {
   const hashMap: Count = {};
   const final: Transaction[] = [];
 
-  transactions.forEach((item) => {
+  getTransactions().forEach((item: Transaction) => {
     const curr = item['Amount'].toString();
     if (!hashMap[curr]) {
       hashMap[curr] = 1;
-    } else if (hashMap[curr] === 1) {
+    } else if (hashMap[curr] === 1 && item.Amount < 0) {
       const temp = item;
       item.uuid = v4();
       item.isActive = true;
+      temp.Amount = Math.abs(temp.Amount);
       final.push(temp);
       hashMap[curr] = hashMap[curr] + 1;
     };
@@ -38,6 +39,6 @@ const filterToMonthly = (transactions: Transaction[]) => {
 }
 
 export async function fetchTransactions(): Promise<Transaction[]> {
-  return filterToMonthly(getTransactions());
+  return filterToMonthly();
 }
 

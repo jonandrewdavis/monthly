@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { v4 } from 'uuid';
 
 import { Transaction } from '../lib/getCategories';
+import Currency from './currency';
 const tablehead = [
   "Post Date",
   "Description", "Category", "Type", "Amount"
@@ -66,7 +67,7 @@ const Table: React.FC<TableProps> = ({ serverTransactions }) => {
                         <label htmlFor="checkbox-table-1" className="sr-only">checkbox</label>
                       </div>
                     </td>
-                    {tablehead.map((column: string) => <td key={v4()} className="py-4 px-6 text-white">{transaction[column]}</td>)}
+                    {tablehead.map((column: string) => <td key={v4()} className="py-4 px-6 text-white">{column === 'Amount' ? <Currency value={transaction.Amount} /> : transaction[column]}</td>)}
                   </tr>
                 ))}
               </tbody>
@@ -74,10 +75,15 @@ const Table: React.FC<TableProps> = ({ serverTransactions }) => {
           </div>
         </div>
       </div>
-
-      <div className="bg-gray-100 dark:bg-gray-700 max-h-32 rounded-lg">
-        <h3>monthly: {getMonthlyTotal(transactionsData)} </h3>
-        <h5>yearly: {getMonthlyTotal(transactionsData) * 12} </h5>
+      <div className="flex flex-col align-middle justify-center flex-grow bg-gray-100 dark:bg-gray-700 max-h-32 rounded-lg text-center">
+        <div>
+          <p>monthly</p>
+          <h3 className='text-2xl'><Currency value={(getMonthlyTotal(transactionsData)).toFixed(2)} /></h3>
+        </div>
+        <div>
+          <p>yearly</p>
+          <h5><Currency value={(getMonthlyTotal(transactionsData) * 12).toFixed(2)} /></h5>
+        </div>
       </div>
 
     </div>

@@ -1,6 +1,3 @@
-type Transaction = {
-  [key: string]: string | number;
-};
 
 export const getTransactions = (): Transaction[] => [
   {
